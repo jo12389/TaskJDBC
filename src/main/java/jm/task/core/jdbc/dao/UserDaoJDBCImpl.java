@@ -54,21 +54,26 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
         try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("insert into mydbtest.new_table (name, lastname, age) VALUES ('" + name + "', '" + lastName + "', '" + age + "')");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into mydbtest.new_table (name, lastName, age) Values (?, ?, ?)");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setByte(3, age);
+            preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 
     public void removeUserById(long id) {
         try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM `mydbtest`.`new_table` WHERE (`id` = '" + id + "' )");
-
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM `mydbtest`.`new_table` WHERE `id` = ?");
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 
     public List<User> getAllUsers() {
@@ -76,19 +81,16 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * from new_table");
-            long id =1;
+            long id = 1;
             while (resultSet.next()) {
 
                 String name = resultSet.getString("name");
                 String lastName = resultSet.getString("lastName");
                 Byte age = resultSet.getByte("age");
-                User user = new User(name,lastName,age);
+                User user = new User(name, lastName, age);
                 user.setId(id);
-
                 userList.add(user);
                 id++;
-
-
 
 
                 // userList.add(new User(resultSet.getString("name"), resultSet.getString("lastName"), resultSet.getByte("age")));

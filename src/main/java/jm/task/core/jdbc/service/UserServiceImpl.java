@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        userDao.saveUser(name,lastName,age);
+        userDao.saveUser(name, lastName, age);
     }
 
     public void removeUserById(long id) {
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        List<User> userList =  userDao.getAllUsers();
+        List<User> userList = userDao.getAllUsers();
         return userList;
     }
 
