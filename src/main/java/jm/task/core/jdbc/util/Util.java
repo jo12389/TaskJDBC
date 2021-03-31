@@ -13,7 +13,7 @@ public class Util {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-            System.out.println("создалось новое соединение");
+
             return connection;
         }
     }
