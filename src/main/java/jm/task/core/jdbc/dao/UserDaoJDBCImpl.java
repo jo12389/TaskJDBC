@@ -11,9 +11,9 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private Connection connection;
+    public static Connection connection;
 
-    {
+/*    {
         try {
             connection = Util.getConnect();
         } catch (ClassNotFoundException e) {
@@ -21,7 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
+    }*/
 
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
