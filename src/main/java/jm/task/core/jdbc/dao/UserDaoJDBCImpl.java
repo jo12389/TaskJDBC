@@ -11,10 +11,21 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
+    private Connection connection;
+
+    {
+        try {
+            connection = Util.getConnect();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     public void createUsersTable() {
-        try (Connection connection = Util.getInstance().getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
+
             statement.execute("CREATE TABLE IF NOT EXISTS `mydbtest`.`new_table` (\n" +
                     "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                     "  `name` VARCHAR(45) NOT NULL,\n" +
@@ -25,54 +36,46 @@ public class UserDaoJDBCImpl implements UserDao {
                     "DEFAULT CHARACTER SET = utf8;\n");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     public void dropUsersTable() {
-        try (Connection connection = Util.getInstance().getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
+
             statement.executeUpdate("DROP TABLE if exists mydbtest.new_table");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        try (Connection connection = Util.getInstance().getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into mydbtest.new_table (name, lastName, age) Values (?, ?, ?)");
+        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into mydbtest.new_table (name, lastName, age) Values (?, ?, ?)")) {
+
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }
 
     public void removeUserById(long id) {
-        try (Connection connection = Util.getInstance().getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM `mydbtest`.`new_table` WHERE `id` = ?");
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM `mydbtest`.`new_table` WHERE `id` = ?")) {
+
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }
 
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        try (Connection connection = Util.getInstance().getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
+
             ResultSet resultSet = statement.executeQuery("SELECT * from new_table");
             long id = 1;
             while (resultSet.next()) {
@@ -90,20 +93,16 @@ public class UserDaoJDBCImpl implements UserDao {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return userList;
     }
 
     public void cleanUsersTable() {
-        try (Connection connection = Util.getInstance().getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
+
             statement.executeUpdate("Delete  FROM mydbtest.new_table");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
 
