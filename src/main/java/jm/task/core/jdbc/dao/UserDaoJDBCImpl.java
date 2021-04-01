@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    public static Connection connection =null;
+    public static Connection connection;
 
 
 
@@ -32,8 +32,8 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        try (Statement statement = connection.createStatement()) {
-
+        try  {
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DROP TABLE if exists mydbtest.new_table");
         } catch (SQLException throwables) {
             throwables.printStackTrace();

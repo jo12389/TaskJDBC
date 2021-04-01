@@ -11,20 +11,26 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private UserDao userDao = new UserDaoJDBCImpl();
-     public  static Connection connection;
+
 
     public void createUsersTable() {
+        try {
         userDao.createUsersTable();
+        }catch (NullPointerException e){e.printStackTrace();}
 
     }
 
     public void dropUsersTable() {
-        userDao.dropUsersTable();
+        try {
+            userDao.dropUsersTable();
+        }catch (NullPointerException e){e.printStackTrace();}
     }
 
     public void saveUser(String name, String lastName, byte age) {
+
         userDao.saveUser(name, lastName, age);
         System.out.println("User с именем – " +name+" добавлен в базу данных");
+
 
     }
 
