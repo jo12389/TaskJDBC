@@ -37,7 +37,9 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate("DROP TABLE if exists mydbtest.new_table");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+
         }
+
     }
 
     public void saveUser(String name, String lastName, byte age) {
