@@ -11,8 +11,17 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    public static Connection connection;
+    public  Connection connection;
 
+    {
+        try {
+            connection = Util.getConnect();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
 
     public void createUsersTable() {
@@ -104,4 +113,5 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     }
+  
 }

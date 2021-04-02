@@ -14,8 +14,8 @@ public class Main  {
     public static void main(String[] args) {
 
         UserService userService = new UserServiceImpl();
-        try(Connection connection = Util.getConnect()){
-            UserDaoJDBCImpl.connection = connection;
+
+
 
             userService.createUsersTable();
 
@@ -30,10 +30,6 @@ public class Main  {
             userService.cleanUsersTable();
             userService.dropUsersTable();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
     }
 }

@@ -4,7 +4,7 @@ package jm.task.core.jdbc.util;
 import java.sql.*;
 
 public class Util {
-    private final static String URL = "jdbc:mysql://localhost:3306/mydbtest";
+    private final static String URL = "jdbc:mysql://localhost:3306/mydbtest?serverTimezone=Europe/Moscow";
     private final static String USERNAME = "root";
     private final static String PASSWORD = "root";
     public static Connection connection;
