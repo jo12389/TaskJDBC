@@ -2,8 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-import org.junit.After;
-import org.junit.Before;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public  Connection connection;
 
+/*
     {
         try {
             connection = Util.getConnect();
@@ -21,7 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
+    }*/
 
 
     public void createUsersTable() {
@@ -93,9 +93,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 userList.add(user);
                 id++;
 
-
-
-                // userList.add(new User(resultSet.getString("name"), resultSet.getString("lastName"), resultSet.getByte("age")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -113,5 +110,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     }
-  
+
+
 }
